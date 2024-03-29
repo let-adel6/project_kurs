@@ -1,0 +1,23 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h1 class="mb-4"><%= @article.title %></h1>
+      <p class="lead my-3"><%= @article.body %></p>
+
+      <p class="lead my-3"><%= @article.user.email %></p>
+      
+      <div class="d-flex justify-content-between">
+      <% if user_signed_in? && current_user.admin? %>
+        <%= link_to 'Изменить', edit_article_path(@article), class: 'btn btn-primary mr-2' %>
+        <%= button_to 'Удалить', article_path(@article), method: :delete, data: { confirm: 'Вы уверены?' }, class: 'btn btn-danger ml-2' %>
+      <% end %>
+      </div>
+
+      <h2 class="mt-4">Коментарии</h2>
+      <%= render @article.comments %>
+
+      <h2 class="mt-4">Напишите коментарий:</h2>
+      <%= render 'comments/form' %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<%= form_with(model: @category) do |form| %>
+    <div class="mb-3">
+      <%= form.label :name, class: 'form-label' %>
+      <%= form.text_field :name, class: 'form-control' %>
+      <% @category.errors.full_messages_for(:name).each do |message| %>
+        <div class="text-danger"><%= message %></div>
+      <% end %>
+    </div>
+  
+    <div class="mb-3">
+      <%= form.submit 'Создать категорию', class: 'btn btn-primary' %>
+    </div>
+  <% end %>

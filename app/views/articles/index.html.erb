@@ -1,0 +1,28 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h1 class="display-3 mb-4">БЛОГ ШЕФА КУРОПАТКИНА</h1>
+
+      <ul class="list-group">
+        <% @articles.each do |article| %>
+          <li class="list-group-item">
+            <%= link_to article.title, article, class: 'text-dark' %>
+            <p>Категории: <%= article.categories.pluck(:name).join(', ') %></p>
+          </li>
+        <% end %>
+      </ul>
+      
+      <%= paginate @articles %>
+
+      <% if !user_signed_in? %>
+        <%= link_to 'Войти', new_user_session_path, class: 'btn btn-primary' %>
+      <% end %>
+      <% if user_signed_in? %>
+        <%= link_to "Новая Статья", new_article_path, class: 'btn btn-primary mt-4' %>
+      <% end %>
+      <% if user_signed_in? && current_user.admin? %>
+        <a href="<%= admin_path %>" class="btn btn-primary mt-4" style="position: fixed; bottom: 20px; right: 20px;">Администратор</a>
+      <% end %>
+    </div>
+  </div>
+</div>

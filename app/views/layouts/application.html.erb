@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BlogKURPATOVA</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+    }
+    header {
+      background-color: #343a40;
+    }
+    header a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+    main {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header class="p-3">
+    <div class="container">
+      <nav class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><%= link_to 'На главную', root_path , class: 'nav-link px-2 text-white' %></li>
+        </ul>
+
+        <%= form_tag articles_path, method: :get, class: "form-inline ml-auto" do %>
+          <div class="input-group">
+            <%= text_field_tag :search, params[:search], placeholder: "Поиск по заголовкам", class: "form-control" %>
+          </div>
+
+          <% if @categories.present? %>
+            <div class="input-group">
+              <%= select_tag :category_id, options_from_collection_for_select(@categories, :id, :name, params[:category_id]), prompt: "Выбрать категорию", class: "form-select" %>
+            </div>
+          <% else %>
+            <p>No categories available</p>
+          <% end %>
+
+          <div class="input-group-append">
+            <%= submit_tag "Поиск", class: "btn btn-outline-secondary" %>
+          </div>
+        <% end %>
+      </nav> 
+    </div>
+  </header>
+
+  <main class="container">
+    <%= yield %>
+  
+    <%= notice %>
+    <%= alert %>
+     <%if user_signed_in?%>
+      <p>Welcome, <%= current_user.username %>!</p>
+      <%= form_tag destroy_user_session_path, method: :delete do %>
+        <%= submit_tag 'Выход', class: 'btn btn-outline-secondary' %>
+      <% end %>
+    <% end %>
+  </main>
+
+</body>
+</html>
+

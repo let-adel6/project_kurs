@@ -1,0 +1,13 @@
+<h1 class="mb-4">Новая статья</h1>
+
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <%= render "form", article: @article %>
+  </div>
+</div>
+
+<div class="mt-4">
+<% if user_signed_in? && current_user.admin? %>
+  <%= link_to 'Создать новую категорию', new_category_path, class: 'btn btn-primary' %>
+<% end %>
+</div>

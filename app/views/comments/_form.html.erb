@@ -1,0 +1,12 @@
+<%= form_with(model: [ @article, @article.comments.build ]) do |form| %>
+
+  <div class="mb-3">
+    <%= form.label :body, class: 'form-label' %>
+    <%= form.text_area :body, class: 'form-control', rows: 3 %>
+  </div>
+
+
+  <div class="mb-3">
+    <%= form.submit 'Опубликовать', class: 'btn btn-primary' %>
+  </div>
+<% end %>

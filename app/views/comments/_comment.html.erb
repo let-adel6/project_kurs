@@ -1,0 +1,13 @@
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title"><strong>Автор:</strong> <%= comment.user.username%></h5>
+      <p class="card-text"><strong>Комментарий:</strong> <%= comment.body %></p>
+
+    <% if current_user.admin? || current_user.username === comment.user.username || current_user.moderator?  %>
+      <%= form_with(model: [comment.article, comment], method: :delete, local: true) do |form| %>
+        <%= form.submit "Удалить комментарий", class: "btn btn-danger" %>
+      <% end %>
+    <% end %>
+    </div>
+  </div>

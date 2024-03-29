@@ -1,0 +1,37 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h1 class="display-3 mb-4">Список пользователей</h1>
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Роль</th>
+              <th>Действия</th> <!-- Добавляем новый заголовок для действий -->
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= user.email %></td>
+                <td>
+                  <%= form_with(model: user, url: update_role_admin_user_path(user), method: :patch) do |f| %>
+                    <%= f.select :role, options_for_select([['Пользователь', :user], ['Модератор', :moderator], ['Администратор', :admin]], selected: user.role), { include_blank: true }, { class: 'form-control' } %>
+                    <%= f.submit 'Обновить', class: 'btn btn-primary btn-sm mt-1' %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= form_with(url: block_admin_user_path(user), method: :patch) do |f| %>
+                    <%= f.submit 'Заблокировать', class: 'btn btn-danger btn-sm mt-1' %>
+                  <% end %>
+               </td> 
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
